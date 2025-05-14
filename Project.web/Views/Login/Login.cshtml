@@ -1,0 +1,70 @@
+@{
+    Layout = "";
+    ViewData["Title"] = "Login";
+}
+@model Project.Repository.ViewModels.LoginViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Project</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="row loginRightSide shadow-lg p-5">
+            <h5>Login Form</h5>
+            <div class="col ">
+                <form method="post" asp-action="Login" asp-controller="Login">
+                    <div class="form-group mt-2 position-relative">
+                        <input asp-for="Email" id="Email" class="form-control bor  form-control-lg" name="Email"
+                            autofocus type="text" placeholder="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-3 position-relative ">
+                        <input type="password" name="Password" class="form-control bor form-control-lg"
+                            placeholder="password" id="password" asp-for="Password">
+                        <i class="fa fa-eye" onclick="ShowPassword()" id="togglePassword"></i>
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+
+                    <div class="row mt-4 mb-lg-0 mb-5 ">
+                        <div class="col-12 d-grid ">
+                            <button type="submit" class="btn btn-primary-lg btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(function () {
+            var successMessage = '@Html.Raw(TempData["error"])';
+            if (successMessage.trim() !== '') {
+                toastr.error(successMessage, "Error");
+            }
+        });
+    </script>
+</body>
+
+</html>
