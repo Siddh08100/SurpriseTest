@@ -63,8 +63,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             }
         };
     });
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Events.OnRedirectToLogout = context =>
+    {
+        context.Response.Cookies.Delete("AuthToken");
+        return Task.CompletedTask;
+    };
+});
+
 var app = builder.Build();
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+    context.Response.Headers["Pragma"] = "no-cache";
+    context.Response.Headers["Expires"] = "-1";
+
+    await next();
+});
 
 
 if (!app.Environment.IsDevelopment())

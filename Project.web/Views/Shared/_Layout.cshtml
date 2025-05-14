@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,21 +9,46 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Project.web.styles.css" asp-append-version="true" />
 </head>
+
 <body>
+    <nav class="navbar navbar-light border bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">Project</a>
+            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#LogoutModal"
+                type="button">Logout</button>
+        </div>
+    </nav>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Project.web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <div class="modal fade" id="LogoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Logout Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <span class="fs-5 fw-bold"> Do you want to Logout ?</span>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <a href="@Url.Action("Logout", "Home")" class="btn btn-primary"
+                        style="text-decoration: none; color: white;">YES</a>
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                        NO
+                    </button>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

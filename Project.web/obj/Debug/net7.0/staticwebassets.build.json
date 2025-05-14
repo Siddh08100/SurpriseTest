@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OAfDG7f9a6qwOchiHMFVe7EldLUPy86Tp/mUdvTk1qY=",
+  "Hash": "eqjXIuMromMWTcoIpx/U2P7L/hE25qi+Q6Xa9xy2my0=",
   "Source": "Project.web",
   "BasePath": "_content/Project.web",
   "Mode": "Default",
@@ -51,12 +51,12 @@
       "OriginalItemSpec": "d:\\SurpriseTest\\Project.web\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Project.web.bundle.scp.css"
     },
     {
-      "Identity": "d:\\SurpriseTest\\Project.web\\wwwroot\\assets\\background.avif",
+      "Identity": "d:\\SurpriseTest\\Project.web\\wwwroot\\assets\\customer.svg",
       "SourceId": "Project.web",
       "SourceType": "Discovered",
       "ContentRoot": "d:\\SurpriseTest\\Project.web\\wwwroot\\",
       "BasePath": "_content/Project.web",
-      "RelativePath": "assets/background.avif",
+      "RelativePath": "assets/customer.svg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -65,7 +65,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\assets\\background.avif"
+      "OriginalItemSpec": "wwwroot\\assets\\customer.svg"
     },
     {
       "Identity": "d:\\SurpriseTest\\Project.web\\wwwroot\\css\\site.css",

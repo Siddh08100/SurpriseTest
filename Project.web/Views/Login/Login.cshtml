@@ -27,23 +27,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 
-<body>
+<body id="Login-body">
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="row loginRightSide shadow-lg p-5">
+        <div class="row shadow-lg pt-5 pb-5 pe-md-5 ps-md-5" id="loginRightSide">
             <h5>Login Form</h5>
-            <div class="col ">
+            <div class="col">
                 <form method="post" asp-action="Login" asp-controller="Login">
                     <div class="form-group mt-2 position-relative">
                         <input asp-for="Email" id="Email" class="form-control bor  form-control-lg" name="Email"
                             autofocus type="text" placeholder="Email" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <i><img src="~/assets/customer.svg"></i>
+                        <span asp-validation-for="Email" class="text-danger fw-bold"></span>
                     </div>
 
                     <div class="form-group mt-3 position-relative ">
                         <input type="password" name="Password" class="form-control bor form-control-lg"
                             placeholder="password" id="password" asp-for="Password">
                         <i class="fa fa-eye" onclick="ShowPassword()" id="togglePassword"></i>
-                        <span class="text-danger" asp-validation-for="Password"></span>
+                        <span class="text-danger fw-bold" asp-validation-for="Password"></span>
                     </div>
 
                     <div class="row mt-4 mb-lg-0 mb-5 ">
@@ -52,7 +53,6 @@
                         </div>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

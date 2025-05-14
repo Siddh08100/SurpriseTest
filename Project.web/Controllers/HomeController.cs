@@ -38,6 +38,13 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Logout()
+    {
+        Response.Cookies.Delete("AuthToken");
+        return RedirectToAction("Login", "Login");
+    }
+
     public IActionResult Privacy()
     {
         return View();

@@ -9,45 +9,45 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Project.web
 build_property.RootNamespace = Project.web
-build_property.ProjectDir = d:\SurpriseTest\Project.web\
+build_property.ProjectDir = D:\SurpriseTest\Project.web\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = d:\SurpriseTest\Project.web
+build_property.MSBuildProjectDirectory = D:\SurpriseTest\Project.web
 build_property._RazorSourceGeneratorDebug = 
 
-[d:/SurpriseTest/Project.web/Views/Home/Index.cshtml]
+[D:/SurpriseTest/Project.web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/SurpriseTest/Project.web/Views/Home/Privacy.cshtml]
+[D:/SurpriseTest/Project.web/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/SurpriseTest/Project.web/Views/Home/UserIndex.cshtml]
+[D:/SurpriseTest/Project.web/Views/Home/UserIndex.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVc2VySW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/SurpriseTest/Project.web/Views/Login/Login.cshtml]
+[D:/SurpriseTest/Project.web/Views/Login/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/SurpriseTest/Project.web/Views/Shared/Error.cshtml]
+[D:/SurpriseTest/Project.web/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/SurpriseTest/Project.web/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/SurpriseTest/Project.web/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/SurpriseTest/Project.web/Views/_ViewImports.cshtml]
+[D:/SurpriseTest/Project.web/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/SurpriseTest/Project.web/Views/_ViewStart.cshtml]
+[D:/SurpriseTest/Project.web/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[d:/SurpriseTest/Project.web/Views/Shared/_Layout.cshtml]
+[D:/SurpriseTest/Project.web/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-f19ysies8o
