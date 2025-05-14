@@ -4,17 +4,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Project.web</title>
+    <title>@ViewData["Title"] - Project</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Project.web.styles.css" asp-append-version="true" />
 </head>
 
 <body>
-    <nav class="navbar navbar-dark border bg-dark">
+    <nav class="navbar" id="Login-body">
         <div class="container-fluid">
-            <a class="navbar-brand fst-italic">PROJECT</a>
-            <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#LogoutModal"
+            <span class="text-light fst-italic fw-bold fs-2">PROJECT</span>
+            <button class="btn btn-outline-light fw-bold border-2" data-bs-toggle="modal" data-bs-target="#LogoutModal"
                 type="button">Logout</button>
         </div>
     </nav>

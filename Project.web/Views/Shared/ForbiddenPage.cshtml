@@ -1,0 +1,45 @@
+@{
+    Layout = "";
+    ViewData["Title"] = "Forbidden";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body id="Login-body">
+    <div class="container-fluid">
+        <div class="row mt-5 mb-5">
+            <div class="col d-flex justify-content-center align-items-center ps-0">
+                @* <img src="/assets/logos/pizzashop_logo.png" class="img-fluid" style="height: 5rem; width: 5rem"
+                    alt="sdsd"> *@
+                <h1 style="color: rgb(255, 255, 255);">PROJECT</h1>
+            </div>
+        </div>
+        <div class="row mt-md-5 mt-3">
+            <div class="col d-flex justify-content-center align-items-center ">
+                <span style="color: rgb(255, 255, 255); font-weight: bolder; font-size: 10rem;">403</span>
+            </div>
+        </div>
+        <div class="row mt-2 mt-md-5 ">
+            <div class="col d-flex justify-content-center align-items-center ">
+                <p class="text-light" style="font-size: 2rem">Forbidden</p>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col d-flex justify-content-center align-items-center ">
+                <p style="font-size: 1.5rem;color: rgb(255, 255, 255)" class="text-center">You don't have access to view this page.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

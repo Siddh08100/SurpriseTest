@@ -57,8 +57,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             },
             OnForbidden = context =>
             {
-                context.Response.Cookies.Delete("AuthToken");
-                context.Response.Redirect("/Login/Login");
+                context.Response.Redirect("/Home/ForbiddenPage");
                 return Task.CompletedTask;
             }
         };
@@ -96,7 +95,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-// app.UseSession();
+app.UseStatusCodePagesWithRedirects("/Home/PageNotFound");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Login}");

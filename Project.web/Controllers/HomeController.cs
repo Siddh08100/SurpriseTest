@@ -20,7 +20,6 @@ public class HomeController : Controller
         _jwtService = jwtService;
     }
 
-
     public IActionResult Index()
     {
         var authToken = Request.Cookies["AuthToken"];
@@ -39,10 +38,24 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Logout()
+    public IActionResult Logout()
     {
         Response.Cookies.Delete("AuthToken");
         return RedirectToAction("Login", "Login");
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    public IActionResult ForbiddenPage()
+    {
+        return View();
+    }
+
+    [AllowAnonymous]
+    [HttpGet]
+    public IActionResult PageNotFound()
+    {
+        return View();
     }
 
     public IActionResult Privacy()
