@@ -12,10 +12,10 @@ form i {
   background-color: rgb(215, 230, 250);
   border: 2px solid black;
   border-radius: 2rem;
-  /* animation: 1.5s fadeInUp; */
+  animation: 1.5s fadeInUp;
 }
 
-/* @keyframes fadeInUp {
+@keyframes fadeInUp {
   0% {
     transform: translateX(100%);
     opacity: 0;
@@ -24,7 +24,7 @@ form i {
     transform: translateX(0%);
     opacity: 1;
   }
-} */
+}
 
 #Login-body{
   background-image: linear-gradient(to right, #09203F , #537895);

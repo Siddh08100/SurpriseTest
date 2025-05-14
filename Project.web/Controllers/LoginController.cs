@@ -36,8 +36,13 @@ public class LoginController : Controller
                 UserViewModel userViewModel = await _service.GetUserByEmail(model);
                 if (userViewModel != null)
                 {
-                    string token = _jwtService.GenerateJwtToken(model.Email, userViewModel.Role, userViewModel.Id);
-                    Response.Cookies.Append("AuthToken", token);
+                    string token = _jwtService.GenerateJwtToken(model.Email, userViewModel.Role, model.RememberMe, userViewModel.Id);
+                    CookieOptions Newoption = new()
+                    {
+                        Expires = model.RememberMe ? DateTime.Now.AddDays(30) : DateTime.Now.AddDays(1),
+                        IsEssential = true
+                    };
+                    Response.Cookies.Append("AuthToken", token, Newoption);
                     return RedirectToAction("Index", "Home");
                 }
                 else

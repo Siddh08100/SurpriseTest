@@ -11,14 +11,14 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light border bg-light">
+    <nav class="navbar navbar-dark border bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand">Project</a>
-            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#LogoutModal"
+            <a class="navbar-brand fst-italic">PROJECT</a>
+            <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#LogoutModal"
                 type="button">Logout</button>
         </div>
     </nav>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -32,7 +32,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <span class="fs-5 fw-bold"> Do you want to Logout ?</span>
+                    <span class="fs-4 fw-bold"> Do you want to Logout ?</span>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                     <a href="@Url.Action("Logout", "Home")" class="btn btn-primary"
