@@ -26,7 +26,32 @@ form i {
   }
 }
 
-#Login-body{
-  background-image: linear-gradient(to right, #09203F , #537895);
+#Login-body {
+  background-image: linear-gradient(to right, #09203f, #537895);
 }
 
+.quantity {
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.quantity button {
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  width: 30px;
+  height: auto;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.input-box {
+  width: 60px;
+  text-align: center;
+  border: none;
+  padding: 8px 10px;
+  font-size: 16px;
+  outline: none;
+  border: 1px solid black;
+}

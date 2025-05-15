@@ -50,7 +50,6 @@ public class ProductService : IProductService
                 Description = product.Description,
                 Price = product.Price,
                 Stock = product.Stock,
-                Password = " ",
                 Createddate = DateTime.Now,
                 Updateddate = DateTime.Now,
                 Createdby = userId,
@@ -66,6 +65,8 @@ public class ProductService : IProductService
             products.Category = product.Category;
             products.Price = product.Price;
             products.Stock = product.Stock;
+            products.Updateddate = DateTime.Now;
+            products.Updatedby = userId;
             await _repository.UpdateProduct(products);
         }
     }

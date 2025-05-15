@@ -8,7 +8,6 @@ public class Products
     public decimal Price { get; set; }
     public short Stock { get; set; }
     public string Category { get; set; } = null!;
-    public string Password { get; set; } = null!;
     public DateTime? Createddate { get; set; }
     public string? Createdby { get; set; }
     public DateTime? Updateddate { get; set; }

@@ -1,0 +1,184 @@
+@model Project.Repository.ViewModels.OrderDetailsViewModel
+
+<div class="row mt-2">
+    <div class="col">
+        <h3>Add New Order</h3>
+    </div>
+    <div class="col d-flex justify-content-end">
+        <button class="btn btn-outline-dark" onclick="window.location.href = '@Url.Action("UserIndex", "Home")'">
+            Back
+        </button>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-6">
+        <select class="form-select" id="ProductList" aria-label="Floating label select example">
+            <option value="" disabled selected>Select the Products</option>
+            @foreach (var categories in Model.Items)
+            {
+                <option value=@Html.Raw(Json.Serialize(categories))>@categories.Name
+                </option>
+            }
+        </select>
+    </div>
+    <div class="col-6">
+        <div style="height: 30rem; overflow-y: scroll; overflow-x:hidden" class="table-responsive bor">
+            <table class="table orderContent">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <span class="fw-bold">Total Amount</span>
+            </div>
+            <div class="col-6 d-flex justify-content-end align-items-center">
+                <span id="totalAmount" value="@Model.TotalAmount">₹ 0</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-end mt-2">
+                <button class="btn btn-outline-dark" id="CheckOutBtn">Check Out</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var model;
+    var indexValue = 0;
+    var ItemsData = [];
+    var totalAmount = 0;
+
+    $(document).ready(function () {
+        model = @Html.Raw(Json.Serialize(Model));
+        model.items = []
+    })
+
+    $("#CheckOutBtn").click(function () {
+        console.log(model)
+        model.orderId = 0;
+        model.status = "happy"
+        $.ajax({
+            url: "/Order/CheckOutOrder",
+            type: "POST",
+            data: {
+                model: model
+            },
+            success: function (data) {
+                if (data == "error") {
+                    toastr.error("Error Occured","Error");
+                }
+                else {
+                    toastr.success("Order saved successfully", "Success");
+                }
+            }
+        })
+    })
+
+    $("#ProductList").change(function () {
+        var SelectedData = JSON.parse($(this).val());
+        console.log(SelectedData)
+        var isDuplicate = model.items.every(function (item) {
+            if (item.id == SelectedData.id) {
+                return false;
+            }
+            return true
+        });
+
+        if (isDuplicate) {
+            indexValue += 1;
+            model.items.push({
+                id: SelectedData.id,
+                name: SelectedData.name,
+                price: SelectedData.price,
+                totalAmount: SelectedData.price,
+                category : SelectedData.category,
+                description : SelectedData.description,
+                stock: 1
+            })
+            model.totalAmount += SelectedData.price
+            model.status = "Placed"
+            $(".orderContent").append(`<tr class="text-start tr">
+                <td>${indexValue}</td>
+                <td>${SelectedData.name} ${SelectedData.id}</td>
+                <td>
+                    <div class="quantity">
+                        <button class="minusBtn" data-id="${SelectedData.id}" aria-label="Decrease">&minus;</button>
+                        <input type="number" class="input-box text-center" value=1 readonly>
+                        <button class="plus" aria-label="Increase" data-id="${SelectedData.id}">&plus;</button>
+                    </div>
+                </td>
+                <td class="ItemRate" value="${SelectedData.price}">${SelectedData.price}</td>
+                <td>
+                    <i class="fa fa-trash-o RemoveOrderItem fs-5" data-id="${SelectedData.id}" data-quantity=-1></i>
+                </td>
+            </tr>
+            `)
+            CalculateValue();
+        }
+    })
+
+    $(document).on("click", ".minusBtn", function () {
+        var id = $(this).data("id");
+        console.log(id)
+        var input = $(this).parent().find(".input-box")
+        var value = parseInt($(this).parent().find(".input-box").val());
+        var decreased = Math.max(value - 1, 1)
+        UpdateModelQuantity(id, decreased)
+        $(this).parent().find(".input-box").val(decreased);
+        CalculateValue();
+    })
+
+    $(document).on("click", ".plus", function () {
+        var id = $(this).data("id");
+        var input = $(this).parent().find(".input-box")
+        var value = parseInt($(this).parent().find(".input-box").val());
+        var increased = Math.min(value + 1, 20)
+        $(this).parent().find(".input-box").val(increased);
+        UpdateModelQuantity(id, increased)
+        CalculateValue()
+    })
+
+    function UpdateModelQuantity(orderId, val) {
+        model.items.map(item => {
+            if (item.id == orderId) {
+                item.stock = val;
+                item.totalAmount = item.price * val;
+            }
+        })
+    }
+
+    function CalculateValue() {
+        totalAmount = 0;
+        SubtotalAmount = 0;
+        $(".ItemRate").each(function () {
+            var rate = parseInt($(this).attr("value"));
+            var quantity = parseInt($(this).parent().find(".input-box").val());
+            $(this).val((rate * quantity).toFixed(2)).text("₹ " + (rate * quantity).toFixed(2));
+            SubtotalAmount += rate * quantity;
+        })
+        totalAmount = SubtotalAmount;
+        $("#totalAmount").text("₹ " + totalAmount.toFixed(2)).val(totalAmount.toFixed(2));
+        model.totalAmount = totalAmount;
+    }
+
+    $(document).on("click", ".RemoveOrderItem", async function () {
+        var id = $(this).data("id");
+        var Quantity = $(this).data("quantity");
+        $(this).closest(".tr").remove();
+        model.items = model.items.filter(function (item) {
+            return item.id != id;
+        })
+        CalculateValue();
+    })
+
+
+
+</script>

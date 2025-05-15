@@ -20,4 +20,5 @@ public class AddEditProductViewModel
 
     [Required(ErrorMessage = "Category is required")]
     public string Category { get; set; }
+    public int? TotalAmount { get; set; }
 }

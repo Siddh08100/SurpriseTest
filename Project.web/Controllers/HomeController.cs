@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Project.Repository.ViewModels;
 using Project.Service.Interface;
 using Project.web.Models;
 
@@ -11,16 +12,18 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly ILoginService _service;
+    private readonly IOrderService _OrderService;
     private readonly IJwtService _jwtService;
 
-    public HomeController(ILogger<HomeController> logger, ILoginService service, IJwtService jwtService)
+    public HomeController(ILogger<HomeController> logger, ILoginService service, IJwtService jwtService, IOrderService OrderService)
     {
         _logger = logger;
         _service = service;
         _jwtService = jwtService;
+        _OrderService = OrderService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         var authToken = Request.Cookies["AuthToken"];
         var (role, email) = _jwtService.ValidateToken(authToken);
@@ -28,13 +31,15 @@ public class HomeController : Controller
         {
             return RedirectToAction("UserIndex", "Home");
         }
-        return View();
+        List<OrderDetailsViewModel> orderDetailsViewModels = await _OrderService.GetAllOrders();
+        return View(orderDetailsViewModels);
     }
 
     [Authorize(Roles = "Users")]
-    public IActionResult UserIndex()
+    public async Task<IActionResult> UserIndex()
     {
-        return View();
+        List<OrderDetailsViewModel> orderDetailsViewModels = await _OrderService.GetAllOrders();
+        return View(orderDetailsViewModels);
     }
 
     [HttpGet]
@@ -56,6 +61,13 @@ public class HomeController : Controller
     public IActionResult PageNotFound()
     {
         return View();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllOrders()
+    {
+        List<OrderDetailsViewModel> orderDetailsViewModels = await _OrderService.GetAllOrders();
+        return PartialView("_OrderDetails", orderDetailsViewModels);
     }
 
     public IActionResult Privacy()

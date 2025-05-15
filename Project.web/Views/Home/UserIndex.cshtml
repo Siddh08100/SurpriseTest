@@ -1,6 +1,19 @@
+@model List<Project.Repository.ViewModels.OrderDetailsViewModel>
 @{
     ViewData["Title"] = "Home";
 }
 <div class="text-center">
     <h1 class="display-4">Welcome User</h1>
+</div>
+
+<div class="row">
+    <div class="col d-flex justify-content-end">
+        <button class="btn btn-outline-dark" onclick="window.location.href = '@Url.Action("Index", "Order")'">
+            Place Order
+        </button>
+    </div>
+</div>
+
+<div class="table-responsive">
+    @Html.Partial("_OrderDetails")
 </div>

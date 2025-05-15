@@ -124,6 +124,24 @@ public partial class ProjectContext : DbContext
                 .HasPrecision(18, 2)
                 .HasColumnName("price");
 
+            entity.Property(e => e.Createdby)
+            .HasMaxLength(50)
+            .HasColumnName("createdby");
+
+            entity.Property(e => e.Createddate)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createddate");
+
+            entity.Property(e => e.Updatedby)
+            .HasMaxLength(50)
+            .HasColumnName("updatedby");
+
+            entity.Property(e => e.Updateddate)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("updateddate");
+
         });
 
         modelBuilder.Entity<ProductOrder>(entity =>
