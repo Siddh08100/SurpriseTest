@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Project.Repository.ViewModels;
@@ -66,6 +67,23 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> GetAllOrders()
     {
+        List<OrderDetailsViewModel> orderDetailsViewModels = await _OrderService.GetAllOrders();
+        return PartialView("_OrderDetails", orderDetailsViewModels);
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPost]
+    public async Task<IActionResult> UpdateStatus(int id, string status)
+    {
+        try
+        {
+            string Userid = User.Claims.FirstOrDefault(claims => claims.Type == ClaimTypes.NameIdentifier).Value;
+            await _OrderService.UpdateOrderStatus(id, status, Userid);
+        }
+        catch (Exception)
+        {
+            return Json("error");
+        }
         List<OrderDetailsViewModel> orderDetailsViewModels = await _OrderService.GetAllOrders();
         return PartialView("_OrderDetails", orderDetailsViewModels);
     }

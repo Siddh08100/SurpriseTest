@@ -33,8 +33,18 @@ public class OrderRepository : IOrderRepository
         {
             TotalAmount = (int?)s.Totalamount,
             ProductNames = s.Productitems.Select(t => t.Name).ToList(),
-            OrderId = s.Id
-            // Status = s.Status
+            OrderId = s.Id,
+            Status = s.Status ?? " "
         }).ToListAsync();
+    }
+
+    public async Task<Orders> GetOrderById(int id)
+    {
+        return await _context.Orders.Where(s => s.Id == id).FirstOrDefaultAsync();
+    }
+
+    public async Task UpdateOrder(Orders order)
+    {
+        await _context.SaveChangesAsync();
     }
 }

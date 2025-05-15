@@ -10,4 +10,8 @@ public interface IOrderRepository
     Task AddProductOrders(ProductOrder productOrder);
 
     Task<List<OrderDetailsViewModel>> GetAllOrders();
+
+    Task<Orders> GetOrderById(int id);
+
+    Task UpdateOrder(Orders order);
 }

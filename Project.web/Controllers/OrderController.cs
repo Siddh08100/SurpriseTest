@@ -32,16 +32,24 @@ public class OrderController : Controller
     [HttpPost]
     public async Task<IActionResult> CheckOutOrder(OrderDetailsViewModel model)
     {
+        foreach (AddEditProductViewModel items in model.Items)
+        {
+            bool ischeck = await _OrderService.CheckStockStatus(items.Id, items.Stock);
+            if (!ischeck)
+            {
+                return Json("LowValue");
+            }
+        }
         try
-        {
-            string Userid = User.Claims.FirstOrDefault(claims => claims.Type == ClaimTypes.NameIdentifier).Value;
-            await _OrderService.AddOrderDetails(model, Userid);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return Json("error");
-        }
+            {
+                string Userid = User.Claims.FirstOrDefault(claims => claims.Type == ClaimTypes.NameIdentifier).Value;
+                await _OrderService.AddOrderDetails(model, Userid);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Json("error");
+            }
         return Json("Ok");
     }
 }

@@ -13,8 +13,66 @@
         </button>
     </div>
 </div>
+
 <div class="row">
-    <div class="table-responsive">
-        @Html.Partial("_OrderDetails",Model)
+    <div class="table-responsive" id="OrdersContent">
+        @Html.Partial("_OrderDetails", Model)
     </div>
 </div>
+
+<div class="modal fade" id="UpdateStatusModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-mute" id="exampleModalLabel">Special Instruction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <select class="form-select" id="StatusList" aria-label="Floating label select example">
+                        <option value="Placed">Placed</option>
+                        <option value="Order Accepted">Order Accepted</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary UpdateStatusBtn">Save</button>
+                    <button type="reset" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var orderid = 0;
+    $(document).on("click", ".UpdateStatusModalBtn", function () {
+        orderid = $(this).data("id");
+        var status = $(this).data("status");
+        $("#StatusList").val(status ?? "Placed")
+        $("#UpdateStatusModal").modal("show");
+    })
+
+    $(".UpdateStatusBtn").click(function () {
+        var status = $("#StatusList").val();
+        $.ajax({
+            url: "/Home/UpdateStatus",
+            type: "POST",
+            data: {
+                id: orderid,
+                status: status
+            },
+            success: function (data) {
+                if (data == "error") {
+                    toastr.error("Error Occured", "Error");
+                }
+                else {
+                    toastr.success("Status Updated", "Success");
+                    $("#OrdersContent").html(data);
+                    $("#UpdateStatusModal").modal("hide");
+                }
+            }
+        })
+    })
+</script>

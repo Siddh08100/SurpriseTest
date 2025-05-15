@@ -1,14 +1,17 @@
 @model List<Project.Repository.ViewModels.OrderDetailsViewModel>
-
+@{
+    var CustomerMenu = ViewContext.RouteData.Values["action"]?.ToString();
+}
 <table class="table">
     <tr>
         <th>ID</th>
         <th>Ordered Product(s)</th>
+        <th>Status</th>
         <th>Total Amount</th>
     </tr>
     @foreach (var orders in Model)
-    {
-        <tr>
+    { 
+        <tr data-id="@orders.OrderId" data-status="@orders.Status" class="@(CustomerMenu == "Index" ? "UpdateStatusModalBtn" : "")">
             <td>@orders.OrderId</td>
             <td>
                 @foreach (var items in orders.ProductNames)
@@ -16,6 +19,7 @@
                     <li>@items</li>
                 }
             </td>
+            <td>@orders.Status</td>
             <td>
                 @orders.TotalAmount
             </td>

@@ -128,6 +128,10 @@ public partial class ProjectContext : DbContext
             .HasMaxLength(50)
             .HasColumnName("createdby");
 
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasColumnName("status");
+
             entity.Property(e => e.Createddate)
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")

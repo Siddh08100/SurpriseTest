@@ -14,7 +14,7 @@
     {
         foreach (var items in Model)
         {
-            <tr>
+            <tr style="@(items.Stock <= 5 ? "background-color: rgb(255, 189, 168)" : "")">
                 <th>#@items.Id</th>
                 <th>@items.Name</th>
                 <th>@items.Category</th>
@@ -23,8 +23,8 @@
                 <th>@items.Description</th>
                 <th>
                     <span>
-                        <button class="btn btn-danger AddEditModalBtn" data-id="@items.Id">Edit</button>
-                        <button class="btn btn-outline-dark DeleteProduct" data-id="@items.Id">Delete</button>
+                        <button class="btn btn-outline-dark AddEditModalBtn" data-id="@items.Id">Edit</button>
+                        <button class="btn btn-danger DeleteProduct" data-id="@items.Id">Delete</button>
                     </span>
                 </th>
             </tr>
