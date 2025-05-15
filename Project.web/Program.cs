@@ -13,11 +13,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ProjectContext>();
-builder.Services.AddDbContext<ProjectContext>(options => options.UseNpgsql("Host=localhost;port=5432;Database=Project;Username=postgres;Password=Tatva@123"));
+// builder.Services.AddDbContext<ProjectContext>(options => options.UseNpgsql("Host=localhost;port=5432;Database=Project;Username=postgres;Password=Tatva@123"));
+builder.Services.AddDbContext<ProjectContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionStrings")));
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

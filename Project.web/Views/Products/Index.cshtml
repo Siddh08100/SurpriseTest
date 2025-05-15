@@ -1,0 +1,76 @@
+@{
+    ViewData["Title"] = "Product";
+}
+
+@model List<Project.Repository.ViewModels.AddEditProductViewModel>
+
+<div class="row mt-3">
+    <div class="col">
+        <h3>Product Details</h3>
+    </div>
+    <div class="col d-flex justify-content-end">
+        <button class="btn btn-outline-dark AddEditModalBtn me-2" data-id="0">Add Product</button>
+        <button class="btn btn-outline-dark" onclick="window.location.href = '@Url.Action("Index", "Home")'">
+            Back
+        </button>
+    </div>
+</div>
+
+
+<div class="table-responsive mt-3" id="DisplayProduct">
+    @Html.Partial("_DisplayProducts", Model)
+</div>
+
+<div class="modal fade" id="AddEditModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered" id="ProductContent" data-bs-backdrop="static">
+
+    </div>
+</div>
+
+<script>
+    $(document).on("click", ".AddEditModalBtn", function () {
+        var id = $(this).data('id');
+        $.ajax({
+            type: "GET",
+            url: "/Products/AddEditModal",
+            data: { id: id },
+            success: function (response) {
+                if (response != "error") {
+                    $("#ProductContent").html(response);
+                    $("#AddEditModal").modal("show");
+                }
+                else {
+                    toastr.success("Error occured");
+                }
+            }
+        });
+    })
+
+    function GetProducts() {
+        $.ajax({
+            url: "/Products/GetProducts",
+            type: "GET",
+            success: function (data) {
+                $("#DisplayProduct").html(data);
+            }
+        })
+    }
+
+    $(document).on("click", ".DeleteProduct", function () {
+        var Id = $(this).data('id');
+        $.ajax({
+            type: "POST",
+            url: "/Products/DeleteProduct",
+            data: { id: Id },
+            success: function (response) {
+                if (response == "error") {
+                    toastr.error("Error occured", "Error");
+                }
+                else {
+                    GetProducts();
+                    toastr.success("Deleted successfully");
+                }
+            }
+        });
+    })
+</script>

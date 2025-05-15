@@ -17,3 +17,12 @@ function ShowPassword() {
   password.setAttribute("type", type);
 }
 
+function InputOnlyNumber(input) {
+  input.value = input.value.replace(/[^0-9]/g, "");
+}
+
+function InputDecimalNumber(input) {
+  input.value = input.value
+    .replace(/[^0-9.]/g, "")
+    .replace(/^([^.]*\.)|\./g, "$1");
+}

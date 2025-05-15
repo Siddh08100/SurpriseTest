@@ -1,0 +1,91 @@
+@model Project.Repository.ViewModels.AddEditProductViewModel
+<partial name="_ValidationScriptsPartial" />
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Waiting Token Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <form id="AddEditProductForm" onsubmit="return false">
+        <div class="modal-body">
+            <div class="row mt-2">
+                <div class="form-floating col-12">
+                    <input type="text" class="form-control" name="Name" asp-for="@Model.Name" id="CustomerEmail"
+                        placeholder="ItemName" autocomplete="false" />
+                    <label for="ItemName">Name*</label>
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="form-floating col-12">
+                    <input type="text" class="form-control input" name="Category" asp-for="@Model.Category"
+                        placeholder="ItemName" />
+                    <label for="ItemName">Category*</label>
+                    <span asp-validation-for="@Model.Category" class="text-danger"></span>
+                </div>
+            </div>
+            <input type="hidden" asp-for="@Model.Id" name="Id">
+            <div class="row g-2 mt-2">
+                <div class="form-floating col-12 col-lg">
+                    <input type="text" class="form-control" oninput="InputDecimalNumber(this)" name="Price"
+                        maxlength="18" asp-for="@Model.Price" placeholder="ItemName" />
+                    <label for="ItemName">Price*</label>
+                    <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                </div>
+                <div class="form-floating col-lg col-12  mt-2">
+                    <input type="number" class="form-control input" oninput="InputDecimalNumber(this)" name="Stock"
+                        asp-for="@Model.Stock" placeholder="ItemName" />
+                    <label for="ItemName">Stock*</label>
+                    <span asp-validation-for="@Model.Stock" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-floating col-12 mt-2">
+                <textarea class="form-control" placeholder="Leave a comment here" asp-for="@Model.Description"
+                    name="Description"></textarea>
+                <label for="floatingTextarea">Description*</label>
+                <span asp-validation-for="@Model.Description" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="reset" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $("#AddEditProductForm").submit(function () {
+        console.log($("#AddEditProductForm").valid())
+        if ($("#AddEditProductForm").valid()) {
+            var form = $('#AddEditProductForm')[0];
+            var formData = new FormData(form);
+            $.ajax({
+                url: "/Products/AddEditProduct",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response == "OK") {
+                        toastr.success("Product added successfully", "Success");
+                    }
+                    else if (response == "Error") {
+                        toastr.error("Error occured", "Error");
+                    }
+                    else if (response == "Edit") {
+                        toastr.success("Product updated successfully", "Success");
+                    }
+                    else {
+                        toastr.error("Name already exist", "Error");
+                    }
+                    $('#AddEditModal').modal('hide');
+                    GetProducts();
+                }
+            })
+        }
+    })
+</script>

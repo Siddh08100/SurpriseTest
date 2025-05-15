@@ -1,0 +1,39 @@
+@model List<Project.Repository.ViewModels.AddEditProductViewModel>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Stock</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    @if (Model.Count > 0)
+    {
+        foreach (var items in Model)
+        {
+            <tr>
+                <th>#@items.Id</th>
+                <th>@items.Name</th>
+                <th>@items.Category</th>
+                <th>@items.Stock</th>
+                <th>@items.Price</th>
+                <th>@items.Description</th>
+                <th>
+                    <span>
+                        <button class="btn btn-danger AddEditModalBtn" data-id="@items.Id">Edit</button>
+                        <button class="btn btn-outline-dark DeleteProduct" data-id="@items.Id">Delete</button>
+                    </span>
+                </th>
+            </tr>
+        }
+    }
+</table>
+@if (Model.Count == 0)
+{
+    <div>
+        <p class="text-center">No Products Found</p>
+    </div>
+}
