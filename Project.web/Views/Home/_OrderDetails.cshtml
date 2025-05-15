@@ -12,7 +12,7 @@
     @foreach (var orders in Model)
     { 
         <tr data-id="@orders.OrderId" data-status="@orders.Status" class="@(CustomerMenu == "Index" ? "UpdateStatusModalBtn" : "")">
-            <td>@orders.OrderId</td>
+            <td>#@orders.OrderId</td>
             <td>
                 @foreach (var items in orders.ProductNames)
                 {

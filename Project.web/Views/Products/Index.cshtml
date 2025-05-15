@@ -64,7 +64,7 @@
             data: { id: Id },
             success: function (response) {
                 if (response == "error") {
-                    toastr.error("Error occured", "Error");
+                    toastr.error("Product is already Ordered cannot be deleted", "Error");
                 }
                 else {
                     GetProducts();

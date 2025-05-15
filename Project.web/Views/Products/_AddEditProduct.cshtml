@@ -33,7 +33,7 @@
                     <span asp-validation-for="@Model.Price" class="text-danger"></span>
                 </div>
                 <div class="form-floating col-lg col-12  mt-2">
-                    <input type="number" class="form-control input" oninput="InputDecimalNumber(this)" name="Stock"
+                    <input type="text" class="form-control input" oninput="InputOnlyNumber(this)" name="Stock"
                         asp-for="@Model.Stock" placeholder="ItemName" />
                     <label for="ItemName">Stock*</label>
                     <span asp-validation-for="@Model.Stock" class="text-danger"></span>

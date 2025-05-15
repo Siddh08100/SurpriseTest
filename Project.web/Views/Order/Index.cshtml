@@ -1,4 +1,7 @@
 @model Project.Repository.ViewModels.OrderDetailsViewModel
+@{
+    ViewData["Title"] = "Add Order";
+}
 
 <div class="row mt-2">
     <div class="col">
@@ -12,7 +15,7 @@
 </div>
 
 <div class="row mt-2">
-    <div class="col-6">
+    <div class="col-lg-6">
         <select class="form-select" id="ProductList" aria-label="Floating label select example">
             <option value="" disabled selected>Select the Products</option>
             @foreach (var categories in Model.Items)
@@ -22,8 +25,8 @@
             }
         </select>
     </div>
-    <div class="col-6">
-        <div style="height: 30rem; overflow-y: scroll; overflow-x:hidden" class="table-responsive bor">
+    <div class="col-lg-6 shadow-lg">
+        <div style="height: 30rem; overflow-y: scroll; overflow-x:hidden" class="table-responsive">
             <table class="table orderContent">
                 <tr>
                     <th>ID</th>
@@ -39,11 +42,11 @@
                 <span class="fw-bold">Total Amount</span>
             </div>
             <div class="col-6 d-flex justify-content-end align-items-center">
-                <span id="totalAmount" value="@Model.TotalAmount">₹ 0</span>
+                <span class="fw-bold" id="totalAmount" value="@Model.TotalAmount">₹ 0</span>
             </div>
         </div>
         <div class="row">
-            <div class="col d-flex justify-content-end mt-2">
+            <div class="col d-flex justify-content-end mt-2 mb-2">
                 <button class="btn btn-outline-dark" id="CheckOutBtn">Check Out</button>
             </div>
         </div>
@@ -64,25 +67,32 @@
     $("#CheckOutBtn").click(function () {
         console.log(model)
         model.orderId = 0;
-        $.ajax({
-            url: "/Order/CheckOutOrder",
-            type: "POST",
-            data: {
-                model: model
-            },
-            success: function (data) {
-                if (data == "error") {
-                    toastr.error("Error Occured","Error");
+        if (model.items.length > 0) {
+            $.ajax({
+                url: "/Order/CheckOutOrder",
+                type: "POST",
+                data: {
+                    model: model
+                },
+                success: function (data) {
+                    if (data == "error") {
+                        toastr.error("Error Occured", "Error");
+                    }
+                    else if (data == "LowValue") {
+                        toastr.error("Demanded items are not available in stock", "Error");
+                    }
+                    else {
+                        toastr.success("Order saved successfully", "Success");
+                        setTimeout(function () {
+                            window.location.href = "/Home/UserIndex"
+                        }, 500);
+                    }
                 }
-                else if(data == "LowValue")
-                {
-                    toastr.error("Demanded items are not available in stock","Error");
-                }
-                else {
-                    toastr.success("Order saved successfully", "Success");
-                }
-            }
-        })
+            })
+        }
+        else{
+            toastr.error("Select items first")
+        }
     })
 
     $("#ProductList").change(function () {
@@ -102,15 +112,15 @@
                 name: SelectedData.name,
                 price: SelectedData.price,
                 totalAmount: SelectedData.price,
-                category : SelectedData.category,
-                description : SelectedData.description,
+                category: SelectedData.category,
+                description: SelectedData.description,
                 stock: 1
             })
             model.totalAmount += SelectedData.price
             model.status = "Placed"
             $(".orderContent").append(`<tr class="text-start tr">
                 <td>${indexValue}</td>
-                <td>${SelectedData.name} ${SelectedData.id}</td>
+                <td>${SelectedData.name}</td>
                 <td>
                     <div class="quantity">
                         <button class="minusBtn" data-id="${SelectedData.id}" aria-label="Decrease">&minus;</button>
